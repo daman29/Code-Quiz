@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/normalise.css" />
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Javascript Code Quiz</title>
+  </head>
+  <body>
+    <header>
+      <h3><a href="#" id="view-highscores"></a></h3>
+      <h3 id="timer"></h3>
+    </header>
+    <main>
+      <div class="content">
+        <h2 id="heading"></h2>
+        <h3 id="subheading"></h3>
+        <ul class="options"></ul>
+        <button id="start-button">Start</button>
+      </div>
+      <div class="content hide" id="form">
+        <form method="POST">
+          <label for="initials">Enter your initials</label>
+          <input type="text" name="initials" id="initials" required/>
+          <button id="submit-button">Submit</button>
+        </form>
+      </div>
+      <div class="content hide" id="results">
+        <ul id="results-table"></ul>
+        <div class="highscore-buttons">
+            <button id="back-button">Go Back</button>
+            <button id="clear-button">Clear Highscores</button>
+        </div>
+      </div>
+    </main>
+    <footer></footer>
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>
