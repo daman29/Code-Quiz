@@ -1,10 +1,16 @@
+// variable declaration
+// buttons selectors
 var startButton = document.querySelector("#start-button");
 var submitButton = document.querySelector("#submit-button");
 var backButton = document.querySelector("#back-button");
 var clearButton = document.querySelector("#clear-button");
+// timer text selector
 var timer = document.querySelector("#timer");
+// Questions answer options lists selector
 var options = document.querySelector(".options");
+//view highscore button
 var viewHighscores = document.querySelector("#view-highscores");
+// text fields selectors
 var heading = document.querySelector("#heading");
 var subheading = document.querySelector("#subheading");
 var answerFeedback = document.querySelector("#answer");
@@ -12,16 +18,20 @@ var formInput = document.querySelector("#form");
 var resultsDisplay = document.querySelector("#results");
 var initialInput = document.querySelector("#initials");
 var resultsTable = document.querySelector("#results-table");
+//empty array of 'li' elements and 'a' elements
 var optionLi = [...Array(4)];
 var optionA = [...Array(4)];
+// empty array of highscores
 var highscores = [];
 var liEl = [];
 var lastQuestion = [];
+//check and counter variables
 var finalScore;
 var check;
 var doneCount;
 var currentQuestion;
 var stopTimer;
+//question objects with answer choices and correct answer properties
 var question1 = {
   question: "Which type of JavaScript language is ___",
   option0: "Object-Oriented",
@@ -108,6 +118,7 @@ var question10 = {
   option3: "None of the above",
   rightOption: "option1",
 };
+//array with all the questions
 var questions = [
   question1,
   question2,
@@ -120,9 +131,12 @@ var questions = [
   question9,
   question10,
 ];
+// p element
 var pEl = document.createElement("p");
+//seconds variable declaration
 var seconds;
 
+//function to start the quiz from the start button
 function startQuiz() {
   startButton.style.display = "none";
   heading.textContent = "";
@@ -130,17 +144,21 @@ function startQuiz() {
   if (storedHighscores !== null) {
     highscores = storedHighscores;
   }
+  //function then calls the start timer function and render view functions to rended the questions
   startTimer();
   renderView();
 }
 
+// function to print questions and their options
 function renderView() {
   answerFeedback.textContent = "";
   var same = true;
+  //check if first question is being printed then chooses a random question from the question array
   if (lastQuestion.length === 0) {
     currentQuestion = Math.floor(Math.random() * questions.length);
     lastQuestion[0] = currentQuestion;
   } else {
+    // if not the first question chooses a random question from the array and checks if it has been chosen before. if yes then chooses another random one else prints it.
     while (same) {
       currentQuestion = Math.floor(Math.random() * questions.length);
       if (lastQuestion.includes(currentQuestion)) {
@@ -152,9 +170,11 @@ function renderView() {
     }
   }
   subheading.textContent = questions[currentQuestion].question;
+  //creates 'li' and 'a' elements with all the answer choices
   createOptions(currentQuestion);
 }
 
+//function to clear all the text fields and tables.
 function clearView() {
   heading.textContent = "";
   subheading.textContent = "";
@@ -170,7 +190,9 @@ function clearView() {
   }
 }
 
+//function to create list of multiple answers for each question
 function createOptions(currentQuestion) {
+  //check if first question then generates new elements else changes value of existing elements
   if (doneCount === 0) {
     for (let z = 0; z < 4; z++) {
       var currentOption = "option" + z;
@@ -190,6 +212,7 @@ function createOptions(currentQuestion) {
   }
 }
 
+//function to start and stop timer
 function startTimer() {
   var timerInterval = setInterval(function () {
     console.log(stopTimer);
@@ -198,16 +221,19 @@ function startTimer() {
         seconds--;
         timer.textContent = "Timer: " + seconds;
       } else {
+        //if time runs out then run outOfTime function
         clearInterval(timerInterval);
         outOfTime();
       }
     } else if (stopTimer === true) {
+      //if stop timer is passed to this function then stop the timer and print empty string for timer
       timer.textContent = "";
       clearInterval(timerInterval);
     }
   }, 1000);
 }
 
+//displays the highscores in a 'ul' element
 function displayResults() {
   clearView();
   viewHighscores.style.display = "none";
@@ -220,6 +246,7 @@ function displayResults() {
   resultsDisplay.classList.remove("hide");
 }
 
+// posts the final score and updates the highscore array with the latest score
 function postResults(initials) {
   formInput.classList.add("hide");
   highscores.unshift(initials + " - " + finalScore);
@@ -227,9 +254,11 @@ function postResults(initials) {
   displayResults();
 }
 
+//if all questions are answered correctly before time runs out the score is printed and user is prompted to enter initials and save score
 function quizComplete() {
   stopTimer = true;
   clearView();
+  //while there are options in the 'ul' element then keep removing them
   while (options.firstChild) {
     options.removeChild(options.firstChild);
   }
@@ -240,21 +269,27 @@ function quizComplete() {
   formInput.classList.remove("hide");
 }
 
+//function to check answer that user has selected
 function checkAnswer(selected) {
   var chosenOption = "option" + selected;
+  //if selected answer is the correct answer then either keep printing questions or end quiz
   if (chosenOption === questions[currentQuestion].rightOption) {
     doneCount++;
+    //if questions remain in the array then keep printing new questions
     if (doneCount < questions.length) {
       renderView();
+      //else run quizComplete function
     } else {
       quizComplete();
     }
   } else if (chosenOption !== questions[currentQuestion].rightOption) {
+    //if chosen answer is wrong then minus 3 seconds from the timer and give user feedback that the selection is wrong
     seconds = seconds - 3;
     answerFeedback.textContent = "Wrong!";
   }
 }
 
+//outOfTime function to let user know they are out of time and provide button to reset quiz
 function outOfTime() {
   clearView();
   while (options.firstChild) {
@@ -266,8 +301,9 @@ function outOfTime() {
   clearButton.style.display = "none";
 }
 
+//initial screen render
 function initialRender() {
-  heading.textContent = "Welcome To Code Quiz";
+  heading.textContent = "Welcome To Coding Quiz Challenge";
   subheading.textContent =
     "This quiz is a multiple choice questions quiz. Each wrong answer will minus 3 seconds from your time remaining. At the end the remaining time will be your score. You will be able to submit your score into the leader board. Press start button to start the quiz.";
   startButton.style.display = "block";
@@ -280,7 +316,9 @@ function initialRender() {
   resultsDisplay.classList.add("hide");
 }
 
+//clear highscore if the clear button is pressed
 function clearHighscores() {
+  //delete data from local storage
   localStorage.clear();
   highscores = [];
   while (resultsTable.firstChild) {
@@ -288,6 +326,7 @@ function clearHighscores() {
   }
 }
 
+//initialization function
 function init() {
   doneCount = 0;
   seconds = 75;
@@ -296,6 +335,7 @@ function init() {
   initialRender();
 }
 
+//event listener on the view highscore button
 viewHighscores.addEventListener("click", function (event) {
   stopTimer = true;
   startButton.style.display = "none";
@@ -305,13 +345,16 @@ viewHighscores.addEventListener("click", function (event) {
   displayResults();
 });
 
+//event listener on the clear button
 clearButton.addEventListener("click", function (event) {
   event.preventDefault();
   clearHighscores();
 });
 
+// event listener on the back button
 backButton.addEventListener("click", init);
 
+//event listener on the options for each question
 options.addEventListener("click", function (e) {
   var node = e.target;
   if (node && node.nodeName == "A") {
@@ -319,6 +362,7 @@ options.addEventListener("click", function (e) {
   }
 });
 
+//event listener on the submit highscore button
 submitButton.addEventListener("click", function (event) {
   event.preventDefault();
   var initialText = initialInput.value.trim();
@@ -329,6 +373,8 @@ submitButton.addEventListener("click", function (event) {
   }
 });
 
+//event listener on the start button
 startButton.addEventListener("click", startQuiz);
 
+//initialise the quiz when the JS finished loading
 init();

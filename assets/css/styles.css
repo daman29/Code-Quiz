@@ -15,9 +15,11 @@ body {
   font-size: 30px;
   max-width: 1140px;
   margin: auto;
+  height: 100vh;
 }
 header {
   margin-top: 15px;
+  padding: 0 10px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -41,6 +43,9 @@ main {
 }
 main {
   margin: 20px 0;
+}
+body {
+  justify-content: space-between;
 }
 
 button {
@@ -87,4 +92,12 @@ a:hover {
 
 #subheading {
   font-weight: 400;
+}
+
+footer {
+  background-color: var(--neon-pink);
+  color: white;
+  text-align: center;
+  width: 100vw;
+  padding: 10px 0;
 }
