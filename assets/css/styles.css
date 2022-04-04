@@ -1,55 +1,90 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+:root {
+  --neon-pink: rgb(160, 17, 148);
+  --light-pink: #722b6a;
+  --beige: azure;
+  --dark-pink: #e61ac4;
 }
-body{
-    background-color: azure;
-    font-family:  'Fredoka', sans-serif;
-    font-size: 30px;
-    max-width: 1140px;
-    margin: auto;
-
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
-header{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+body {
+  background-color: var(--beige);
+  font-family: "Fredoka", sans-serif;
+  font-size: 30px;
+  max-width: 1140px;
+  margin: auto;
+}
+header {
+  margin-top: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+header a {
+  background-color: var(--light-pink);
+  border-radius: 8px;
+  padding: 0 5px;
+  color: white;
+  text-decoration: none;
+}
+header a:hover {
+  background-color: var(--neon-pink);
 }
 body,
-main,
-.options{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
-main{
-    margin: 20px 0;
-}
-
-button{
-    padding: 0 5px;
-    border-radius: 10px;
-    background-color: rgb(204, 18, 188);
-    color: azure;
-}
-.options{
-    list-style: none;
+main {
+  margin: 20px 0;
 }
 
-.content{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 10px;
+button {
+  padding: 0 5px;
+  border-radius: 10px;
+  background-color: var(--neon-pink);
+  color: azure;
+}
+.options {
+  width: 100%;
+  list-style: none;
+  padding: 10px 0;
 }
 
-.highscore-buttons{
-    margin-top: 10px;
+li {
+  margin-bottom: 10px;
+}
+a {
+  background-color: var(--neon-pink);
+  border-radius: 8px;
+  padding: 0 5px;
+  color: white;
+  text-decoration: none;
+}
+a:hover {
+  background-color: var(--dark-pink);
 }
 
-.hide{
-    display: none;
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 10px;
+}
+
+.highscore-buttons {
+  margin-top: 10px;
+}
+
+.hide {
+  display: none;
+}
+
+#subheading {
+  font-weight: 400;
 }
